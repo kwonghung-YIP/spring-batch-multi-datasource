@@ -1,0 +1,39 @@
+spring-batch:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://192.168.79.129:23306/spring-batch?useSSL=false&allowPublicKeyRetrieval=true
+    username: batch
+    password: testing
+    auto-commit: false
+    
+db1:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://192.168.79.129:23307/db1
+    username: user02
+    password: testing
+    auto-commit: false
+  init-script: classpath:data-mysql-db1.sql
+  
+db2:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://192.168.79.129:23308/db2
+    username: user03
+    password: testing
+    auto-commit: false
+  init-script: classpath:data-mysql-db2.sql
+  
+spring:
+  batch:
+    job:      enabled: false
+    initialize-schema: never
+
+logging:  level:
+    org.springframework.batch: info
+    org.springframework.batch.repeat: info
+    com.zaxxer.hikari: info
+    org.springframework.jdbc: info
+    org.springframework.transaction: info
+    org.springframework.data.transaction: info
+    #com.atomikos: debug
