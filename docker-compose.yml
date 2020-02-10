@@ -24,4 +24,4 @@ services:
       - MYSQL_DATABASE=db
       - MYSQL_USER=account
       - MYSQL_PASSWORD=testing
-	  
+      
