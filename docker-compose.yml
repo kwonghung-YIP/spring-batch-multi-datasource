@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  batch-db:
+    image: mysql:8
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=batch
+      - MYSQL_PASSWORD=testing
+
+  card-db:
+    image: mysql:8
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=card
+      - MYSQL_PASSWORD=testing
+
+  account-db:
+    image: mysql:8
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=account
+      - MYSQL_PASSWORD=testing
+	  
