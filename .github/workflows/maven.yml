@@ -17,4 +17,4 @@ jobs:
           pwd
           chmod u+x ./mvnw
           ls -l
-          ./mvnw -B clean build
+          ./mvnw -B clean package
