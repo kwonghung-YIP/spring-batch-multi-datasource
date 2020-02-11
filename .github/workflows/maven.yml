@@ -12,9 +12,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Build with Maven
+      - name: Build Spring Boot executable jar with Maven
         run: |
-          pwd
           chmod u+x ./mvnw
-          ls -l
           ./mvnw -B clean package -DskipTests
+      - name: Build Docker Image
+        run: |
+          ls -l target
+          docker -v
+          
