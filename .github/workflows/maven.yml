@@ -15,5 +15,6 @@ jobs:
       - name: Build with Maven
         run: |
           pwd
+          chmod u+w ./mvnw
           ls -l
           ./mvnw -B clean build
