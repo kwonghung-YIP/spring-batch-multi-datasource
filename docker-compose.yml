@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  batch-db:
+  spring-batch-db:
     image: mysql:8
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
@@ -24,4 +24,9 @@ services:
       - MYSQL_DATABASE=db
       - MYSQL_USER=account
       - MYSQL_PASSWORD=testing
+      
+  spring-batch:
+    image: kwonghung/spring-batch-multi-datasource:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker-compose
       

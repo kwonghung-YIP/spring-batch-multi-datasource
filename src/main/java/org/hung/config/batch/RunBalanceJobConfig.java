@@ -1,6 +1,5 @@
 package org.hung.config.batch;
 
-import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -11,7 +10,6 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
@@ -23,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
@@ -40,7 +39,7 @@ public class RunBalanceJobConfig {
 	private StepBuilderFactory stepFactory;
 	
 	@Bean
-	JdbcCursorItemReader<AccountTxn> txnReader(@Qualifier("db1") DataSource datasource) {
+	JdbcCursorItemReader<AccountTxn> txnReader(@Qualifier("cardDb") DataSource datasource) {
 		return new JdbcCursorItemReaderBuilder<AccountTxn>()
 				.name("account-txn-reader")
 				.dataSource(datasource)
@@ -80,7 +79,7 @@ public class RunBalanceJobConfig {
 	}
 	
 	@Bean
-	JdbcBatchItemWriter<AccountTxn> balanceWriter(@Qualifier("db2") DataSource datasource) {	
+	JdbcBatchItemWriter<AccountTxn> balanceWriter(@Qualifier("accountDb") DataSource datasource) {	
 		return new JdbcBatchItemWriterBuilder<AccountTxn>()
 				.dataSource(datasource)
 				.assertUpdates(true)
@@ -91,7 +90,7 @@ public class RunBalanceJobConfig {
 	}	
 	
 	@Bean
-	JdbcBatchItemWriter<AccountTxn> postTxnWriter(@Qualifier("db1") DataSource datasource) {	
+	JdbcBatchItemWriter<AccountTxn> postTxnWriter(@Qualifier("cardDb") DataSource datasource) {	
 		return new JdbcBatchItemWriterBuilder<AccountTxn>()
 				.dataSource(datasource)
 				.assertUpdates(true)
@@ -99,6 +98,11 @@ public class RunBalanceJobConfig {
 				.beanMapped()
 				.build();
 	}	
+	
+	@Bean 
+	MyListener listener(@Qualifier("cardDb") DataSource datasource) {
+		return new MyListener<AccountTxn,AccountTxn>(new JdbcTemplate(datasource));
+	}
 	
 	@Bean
 	Step runBalanceStep(@Qualifier("chainTxManager") PlatformTransactionManager transactionManager) {
@@ -117,7 +121,7 @@ public class RunBalanceJobConfig {
 				.processor(txnProcessor())
 				.writer(txnWriter())
 				.transactionAttribute(txAttribute)
-				.listener(new MyListener())
+				.listener(listener(null))
 				.build();
 	}
 	

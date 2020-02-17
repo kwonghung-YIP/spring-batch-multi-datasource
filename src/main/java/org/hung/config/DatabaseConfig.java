@@ -22,30 +22,30 @@ public class DatabaseConfig {
 
 	@Bean
 	@Primary
-	@ConfigurationProperties("spring-batch.datasource")
-	DataSource batchDatasource() {
+	@ConfigurationProperties("spring-batch-db.datasource")
+	DataSource springBatchDb() {
 		DataSourceBuilder builder = DataSourceBuilder.create();
 		builder.type(HikariDataSource.class);
 		return builder.build();
 	}
 	
 	@Bean
-	@ConfigurationProperties("db1.datasource")
-	DataSource db1() {
+	@ConfigurationProperties("card-db.datasource")
+	DataSource cardDb() {
 		DataSourceBuilder builder = DataSourceBuilder.create();
 		builder.type(HikariDataSource.class);
 		return builder.build();
 	}
 	
 	@Bean
-	PlatformTransactionManager db1TxManager() {
-		return new DataSourceTransactionManager(db1());
+	PlatformTransactionManager cardDbTxManager() {
+		return new DataSourceTransactionManager(cardDb());
 	}
 	
 	@Bean
-	DataSourceInitializer db1Init(@Value("${db1.init-script}") Resource initScript) {
+	DataSourceInitializer cardDbInit(@Value("${card-db.init-script}") Resource initScript) {
 		DataSourceInitializer initializer = new DataSourceInitializer();
-		initializer.setDataSource(db1());
+		initializer.setDataSource(cardDb());
 		initializer.setEnabled(true);
 		
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
@@ -59,17 +59,17 @@ public class DatabaseConfig {
 	}
 	
 	@Bean
-	@ConfigurationProperties("db2.datasource")
-	DataSource db2() {
+	@ConfigurationProperties("account-db.datasource")
+	DataSource accountDb() {
 		DataSourceBuilder builder = DataSourceBuilder.create();
 		builder.type(HikariDataSource.class);
 		return builder.build();
 	}
 
 	@Bean
-	DataSourceInitializer db2Init(@Value("${db2.init-script}") Resource initScript) {
+	DataSourceInitializer accountDbInit(@Value("${account-db.init-script}") Resource initScript) {
 		DataSourceInitializer initializer = new DataSourceInitializer();
-		initializer.setDataSource(db2());
+		initializer.setDataSource(accountDb());
 		initializer.setEnabled(true);
 		
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
@@ -83,14 +83,14 @@ public class DatabaseConfig {
 	}
 	
 	@Bean
-	PlatformTransactionManager db2TxManager() {
-		return new DataSourceTransactionManager(db2());
+	PlatformTransactionManager accountDbTxManager() {
+		return new DataSourceTransactionManager(accountDb());
 		//return new JtaTransactionManager();
 	}
 	
 	@Bean
 	PlatformTransactionManager chainTxManager() {
-		ChainedTransactionManager txManager = new ChainedTransactionManager(db1TxManager(),db2TxManager());
+		ChainedTransactionManager txManager = new ChainedTransactionManager(cardDbTxManager(),accountDbTxManager());
 		return txManager;
 	}
 }
