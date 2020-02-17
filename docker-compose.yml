@@ -29,4 +29,9 @@ services:
     image: kwonghung/spring-batch-multi-datasource:latest
     environment:
       - SPRING_PROFILES_ACTIVE=docker-compose
+    depends_on:
+      - spring-batch-db
+      - card-db
+      - account-db
+    
       
