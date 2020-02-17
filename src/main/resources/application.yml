@@ -1,4 +1,5 @@
-logging:  level:
+logging:
+  level:
     org.springframework.batch: info
     org.springframework.batch.repeat: info
     com.zaxxer.hikari: info
@@ -8,16 +9,17 @@ logging:  level:
     #com.atomikos: debug
 
 ---
-spring:  profiles: local
-  batch:    job:      enabled: false    initialize-schema: never        
-spring-batch-db:  datasource:    driver-class-name: com.mysql.cj.jdbc.Driver    jdbc-url: jdbc:mysql://192.168.79.129:23306/spring-batch?useSSL=false&allowPublicKeyRetrieval=true    username: batch    password: testing    auto-commit: false    card-db:  datasource:    driver-class-name: com.mysql.cj.jdbc.Driver    jdbc-url: jdbc:mysql://192.168.79.129:23307/db1    username: user02    password: testing    auto-commit: false  init-script: classpath:data-mysql-card-db.sql  account-db:  datasource:    driver-class-name: com.mysql.cj.jdbc.Driver    jdbc-url: jdbc:mysql://192.168.79.129:23308/db2    username: user03    password: testing    auto-commit: false  init-script: classpath:data-mysql-account-db.sql
----    
-spring:  profiles: docker-compose  batch:    job:      enabled: false    initialize-schema: always  
-  
+spring:
+  profiles: local
+  batch:
+    job:
+      enabled: false
+    initialize-schema: never  
+      
 spring-batch-db:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbc-url: jdbc:mysql://spring-batch-db:23306/db?useSSL=false&allowPublicKeyRetrieval=true
+    jdbc-url: jdbc:mysql://192.168.79.129:23306/spring-batch?useSSL=false&allowPublicKeyRetrieval=true
     username: batch
     password: testing
     auto-commit: false
@@ -25,7 +27,41 @@ spring-batch-db:
 card-db:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbc-url: jdbc:mysql://card-db:23306/db
+    jdbc-url: jdbc:mysql://192.168.79.129:23307/db1
+    username: user02
+    password: testing
+    auto-commit: false
+  init-script: classpath:data-mysql-card-db.sql
+  
+account-db:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://192.168.79.129:23308/db2
+    username: user03
+    password: testing
+    auto-commit: false
+  init-script: classpath:data-mysql-account-db.sql
+
+---    
+spring:
+  profiles: docker-compose
+  batch:
+    job:
+      enabled: false
+    initialize-schema: always  
+  
+spring-batch-db:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://spring-batch-db:3306/db?useSSL=false&allowPublicKeyRetrieval=true
+    username: batch
+    password: testing
+    auto-commit: false
+    
+card-db:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://card-db:3306/db
     username: card
     password: testing
     auto-commit: false
@@ -34,8 +70,8 @@ card-db:
 account-db:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbc-url: jdbc:mysql://account-db:23306/db
+    jdbc-url: jdbc:mysql://account-db:3306/db
     username: account
     password: testing
     auto-commit: false
-  init-script: classpath:schema-mysql-account-db.sql  
+  init-script: classpath:schema-mysql-account-db.sql  
