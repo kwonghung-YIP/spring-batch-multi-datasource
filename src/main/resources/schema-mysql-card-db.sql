@@ -21,7 +21,7 @@ create table CARD_TXN (
   on update cascade on delete restrict
 );
 
-delimiter //
+--delimiter //
 
 create procedure GENERATE_CARD_TXN(
   in no_of_card decimal(10),
@@ -79,9 +79,10 @@ begin
   end while;
   
   commit;
-end //
+end;
+//
 
-delimiter ;
+--delimiter ;
 
 call GENERATE_CARD_TXN(500,10000);
 
