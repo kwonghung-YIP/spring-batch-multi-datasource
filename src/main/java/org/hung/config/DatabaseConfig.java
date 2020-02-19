@@ -74,6 +74,7 @@ public class DatabaseConfig {
 		
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		populator.addScript(initScript);
+		populator.setSeparator("//");
 		initializer.setDatabasePopulator(populator);
 		
 		ResourceDatabasePopulator cleaner = new ResourceDatabasePopulator();

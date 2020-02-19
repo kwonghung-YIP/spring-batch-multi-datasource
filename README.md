@@ -29,15 +29,15 @@ docker run --name=mysql03 \
   mysql:8
   
 docker run \
-  -it --rm --link mysql01 \
-  mysql:8 mysql --host=mysql01 --port=3306 -ubatch -ptesting
+  -it --rm --link mysql01 -v `pwd`/schema-mysql-card-db.sql:/tmp/test.sql \
+  mysql:8 mysql --host=mysql01 --port=3306 -ubatch -ptesting < test.sql
 
 docker run \
   -it --rm --link mysql02 \
   mysql:8 mysql --host=mysql02 --port=3306 -uuser02 -ptesting
 
 docker run \
-  -it --rm --network host \
+  -it --rm \
   mysql:8 mysql --help
 
 docker run \
