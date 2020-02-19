@@ -1,4 +1,4 @@
-drop procedure GENERATE_CARD_TXN;
+drop procedure if exists GENERATE_CARD_TXN;
 
 drop table if exists CARD_TXN;
 
