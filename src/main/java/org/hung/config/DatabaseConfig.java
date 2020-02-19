@@ -30,7 +30,7 @@ public class DatabaseConfig {
 	}
 
 	@Bean
-	DataSourceInitializer springBatchDbInit(@Value("${spring-batch.init-script}") Resource initScript) {
+	DataSourceInitializer springBatchDbInit(@Value("${spring-batch-db.init-script}") Resource initScript) {
 		DataSourceInitializer initializer = new DataSourceInitializer();
 		initializer.setDataSource(cardDb());
 		initializer.setEnabled(true);
