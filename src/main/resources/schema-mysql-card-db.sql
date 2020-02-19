@@ -1,13 +1,13 @@
-drop procedure if exists GENERATE_CARD_TXN;
+drop procedure if exists GENERATE_CARD_TXN//
 
-drop table if exists CARD_TXN;
+drop table if exists CARD_TXN//
 
-drop table if exists CARD;
+drop table if exists CARD//
 
 create table CARD (
   CARD_NO varchar(20) not null primary key,
   CREDIT_LIMIT decimal(10,2) not null
-);
+)//
 
 create table CARD_TXN (
   TX_REF int not null primary key,
@@ -19,7 +19,7 @@ create table CARD_TXN (
   POST_DATETIME datetime(4),
   foreign key FK_CARD_NO(CARD_NO) references CARD(CARD_NO)
   on update cascade on delete restrict
-);
+)//
 
 create procedure GENERATE_CARD_TXN(
   in no_of_card decimal(10),
@@ -76,6 +76,6 @@ begin
 end //
 
 
-call GENERATE_CARD_TXN(500,10000);
+call GENERATE_CARD_TXN(500,10000)//
 
 
