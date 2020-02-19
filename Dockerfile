@@ -10,4 +10,4 @@ WORKDIR /usr/local/springboot
 COPY target/$BUILD_JAR_FILE /usr/local/springboot
 
 #CMD ["./gradlew", "bootRun"]
-CMD ["sh","-c","sleep 30s | java $JAVA_OPTS -jar $BUILD_JAR_FILE"]
+CMD ["sh","-c","sleep 20s && java $JAVA_OPTS -jar $BUILD_JAR_FILE"]
