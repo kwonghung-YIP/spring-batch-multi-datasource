@@ -56,7 +56,7 @@ spring-batch-db:
     jdbc-url: jdbc:mysql://spring-batch-db:3306/db?useSSL=false&allowPublicKeyRetrieval=true
     username: batch
     password: testing
-    auto-commit: ture
+    auto-commit: true
   #init-script: classpath:schema-mysql-spring-batch.sql
     
 card-db:
