@@ -48,7 +48,7 @@ spring:
   batch:
     job:
       enabled: false
-    initialize-schema: always  
+    initialize-schema: never  
   
 spring-batch-db:
   datasource:
@@ -57,6 +57,7 @@ spring-batch-db:
     username: batch
     password: testing
     auto-commit: false
+  init-script: classpath:schema-mysql-spring-batch.sql
     
 card-db:
   datasource:

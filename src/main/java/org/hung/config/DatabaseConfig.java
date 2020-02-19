@@ -28,6 +28,22 @@ public class DatabaseConfig {
 		builder.type(HikariDataSource.class);
 		return builder.build();
 	}
+
+	@Bean
+	DataSourceInitializer springBatchDbInit(@Value("${spring-batch.init-script}") Resource initScript) {
+		DataSourceInitializer initializer = new DataSourceInitializer();
+		initializer.setDataSource(cardDb());
+		initializer.setEnabled(true);
+		
+		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+		populator.addScript(initScript);
+		initializer.setDatabasePopulator(populator);
+		
+		ResourceDatabasePopulator cleaner = new ResourceDatabasePopulator();
+		initializer.setDatabaseCleaner(cleaner);
+		
+		return initializer;
+	}
 	
 	@Bean
 	@ConfigurationProperties("card-db.datasource")
