@@ -29,7 +29,7 @@ public class DatabaseConfig {
 		return builder.build();
 	}
 
-	@Bean
+	/*@Bean
 	DataSourceInitializer springBatchDbInit(@Value("${spring-batch-db.init-script}") Resource initScript) {
 		DataSourceInitializer initializer = new DataSourceInitializer();
 		initializer.setDataSource(cardDb());
@@ -43,7 +43,7 @@ public class DatabaseConfig {
 		initializer.setDatabaseCleaner(cleaner);
 		
 		return initializer;
-	}
+	}*/
 	
 	@Bean
 	@ConfigurationProperties("card-db.datasource")
