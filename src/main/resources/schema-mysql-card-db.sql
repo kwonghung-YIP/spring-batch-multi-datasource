@@ -21,7 +21,7 @@ create table CARD_TXN (
   on update cascade on delete restrict
 );
 
---delimiter //
+delimiter //
 
 create procedure GENERATE_CARD_TXN(
   in no_of_card decimal(10),
@@ -70,19 +70,14 @@ begin
     ) values (
       n, date_add(date_add(d2, interval round(rand()*no_of_days) day), interval round(rand()*24*60*60) second), v_card_no, cr_amt, dr_amt
     );
-    
-    /*if n%1000 = 0 then
-      select n;
-    end if;*/
-    
+        
     set n = n + 1;
   end while;
   
   commit;
-end;
-//
+end //
 
---delimiter ;
+delimiter ;
 
 call GENERATE_CARD_TXN(500,10000);
 
