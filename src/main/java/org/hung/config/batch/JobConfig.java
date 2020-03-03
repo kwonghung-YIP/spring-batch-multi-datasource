@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
-public class RunBalanceJobConfig {
+public class JobConfig {
 
 	@Autowired
 	private JobBuilderFactory jobFactory;
