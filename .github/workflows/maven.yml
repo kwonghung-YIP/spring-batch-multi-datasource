@@ -28,7 +28,10 @@ jobs:
         run: |
           ls -l target
           docker -v
-          docker build -t kwonghung/spring-batch-multi-datasource --build-arg BUILD_JAR_FILE=spring-batch-multi-datasrc-0.0.1-SNAPSHOT.jar .
+          docker build \
+            --cache-from library/openjdk \
+            --tag kwonghung/spring-batch-multi-datasource \
+            --build-arg BUILD_JAR_FILE=spring-batch-multi-datasrc-0.0.1-SNAPSHOT.jar .
           echo ${{ secrets.docker_hub_passwd }} | docker login --username kwonghung --password-stdin
           docker push kwonghung/spring-batch-multi-datasource
           
