@@ -5,7 +5,7 @@ wget --no-cache https://raw.githubusercontent.com/kwonghung-YIP/spring-batch-mul
 docker-compose up
 ```
 
-# Deploy MySQL databases for local development
+## Deploy MySQL databases for local development
 
 ```bash
 docker run --name=mysql01 \
