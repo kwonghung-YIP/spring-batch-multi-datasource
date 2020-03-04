@@ -1,7 +1,7 @@
 # Run this example with docker-compose
 
 ```bash
-wget -qO- --no-cache https://raw.githubusercontent.com/kwonghung-YIP/spring-batch-multi-datasource/master/docker-compose.yml
+wget --no-cache https://raw.githubusercontent.com/kwonghung-YIP/spring-batch-multi-datasource/master/docker-compose.yml
 docker-compose up
 ```
 
