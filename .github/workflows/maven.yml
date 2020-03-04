@@ -15,7 +15,7 @@ jobs:
           java-version: 1.8
       
       - name : Enable maven cache
-        uses: action/cache@v1
+        uses: actions/cache@v1
         with:
           key: ${{ runner.os }}-maven-cache
           path: ~/.m2/repository
