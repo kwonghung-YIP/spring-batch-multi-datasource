@@ -27,8 +27,8 @@ jobs:
       - name: Build Docker Image
         run: |
           ls -l target
-          docker -v
-          docker build --debug \
+          docker -v --debug
+          docker build \
             --cache-from library/openjdk \
             --tag kwonghung/spring-batch-multi-datasource \
             --build-arg BUILD_JAR_FILE=spring-batch-multi-datasrc-0.0.1-SNAPSHOT.jar .
